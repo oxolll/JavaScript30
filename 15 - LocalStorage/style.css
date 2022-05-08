@@ -70,6 +70,13 @@ h2 {
   content: "🌮";
 }
 
+.plates p.delete{
+  margin: 0px;
+  padding: 2px;
+  border: 2px solid gray;
+  color: red;
+}
+
 .add-items {
   margin-top: 20px;
 }

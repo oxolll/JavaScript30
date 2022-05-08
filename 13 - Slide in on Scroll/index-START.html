@@ -47,6 +47,8 @@
       var timeout;
       return function() {
         var context = this, args = arguments;
+        //console.log(context);
+        //console.log(args);
         var later = function() {
           timeout = null;
           if (!immediate) func.apply(context, args);
@@ -58,6 +60,26 @@
       };
     }
 
+    const sliderImages = document.querySelectorAll('.slide-in');
+
+    function checkSlide(e){
+      sliderImages.forEach(sliderImage => {
+        const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height/2;
+        //代表cur 是定位在底部往上 img[i]heigth的一半
+        const imageBottom = sliderImage.offsetTop + sliderImage.height;
+        //代表 img[i]的底部位置 
+        const isHalfShown = slideInAt > sliderImage.offsetTop;
+        //當cur 大於 img[i]從頂部 到 img[i]頂部的距離 => true
+        const isNotScrolledPast = window.scrollY < imageBottom;
+        //當 window 頂部位置 < img[i]的底部絕對位置 
+        if(isHalfShown && isNotScrolledPast){
+          sliderImage.classList.add('active');
+        }
+        else sliderImage.classList.remove('active');
+      })
+    }
+
+    window.addEventListener('scroll',debounce(checkSlide));
   </script>
 
   <style>
